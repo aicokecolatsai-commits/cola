@@ -1,0 +1,125 @@
+# 技能移除工作流程：從指定 issue 的工作區移除技能。
+name: '🗑️ 移除技能'
+run-name: "技能移除: ${{ inputs.skill_name }} | req:${{ inputs.request_id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      skill_name:
+        description: '技能名稱'
+        required: true
+        type: string
+      issue_number:
+        description: '目標 issue 編號'
+        required: true
+        type: string
+      request_id:
+        description: '請求 ID（用於 Core 通知追蹤）'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "skills-remove-${{ github.repository }}-${{ inputs.skill_name }}-${{ inputs.issue_number }}"
+  cancel-in-progress: false
+
+env:
+  SKILL_NAME: "${{ inputs.skill_name }}"
+  ISSUE_NUMBER: "${{ inputs.issue_number }}"
+  PUSH_TOKEN: "${{ secrets.CLAW_SYS_GITHUB_TOKEN || github.token }}"
+  AUTOMATION_GIT_USER_NAME: "${{ vars['AUTOMATION_GIT_USER_NAME'] || 'github-actions[bot]' }}"
+  AUTOMATION_GIT_USER_EMAIL: "${{ vars['AUTOMATION_GIT_USER_EMAIL'] || 'github-actions[bot]@users.noreply.github.com' }}"
+
+jobs:
+  remove-skill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+
+      # ── Step 1: 驗證輸入參數 ──────────────────────────────────────
+      - name: 驗證輸入參數
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${SKILL_NAME}" ]]; then
+            echo "::error::skill_name is required"
+            exit 1
+          fi
+          if [[ -z "${ISSUE_NUMBER}" ]]; then
+            echo "::error::issue_number is required"
+            exit 1
+          fi
+          echo "skill_name=${SKILL_NAME}"
+          echo "issue_number=${ISSUE_NUMBER}"
+
+      # ── Step 2: 簽出倉庫 ──────────────────────────────────────────
+      - name: 簽出倉庫
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ env.PUSH_TOKEN }}
+
+      # ── Step 3: 切換到 issue 分支並移除技能 ────────────────────────
+      - name: 切換到 issue 分支並移除技能
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TARGET_BRANCH="issue-${ISSUE_NUMBER}"
+          SKILL_PATH=".agents/skills/${SKILL_NAME}"
+
+          git config user.name "${AUTOMATION_GIT_USER_NAME}"
+          git config user.email "${AUTOMATION_GIT_USER_EMAIL}"
+          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git"
+
+          git fetch --no-tags origin "${TARGET_BRANCH}" || {
+            echo "REMOVE_FAILED=true" >> "$GITHUB_ENV"
+            echo "REMOVE_ERROR=分支 ${TARGET_BRANCH} 不存在" >> "$GITHUB_ENV"
+            exit 0
+          }
+
+          git checkout -B "${TARGET_BRANCH}" "origin/${TARGET_BRANCH}"
+
+          if [[ ! -d "${SKILL_PATH}" ]]; then
+            echo "REMOVE_FAILED=true" >> "$GITHUB_ENV"
+            echo "REMOVE_ERROR=技能 '${SKILL_NAME}' 未安裝在 ${TARGET_BRANCH}" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          rm -rf "${SKILL_PATH}"
+          echo "✅ Removed ${SKILL_PATH}"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            echo "REMOVE_RESULT=no_changes" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          git commit -m "feat: remove skill '${SKILL_NAME}' from issue #${ISSUE_NUMBER}"
+
+          if git push origin "HEAD:${TARGET_BRANCH}"; then
+            echo "✅ Pushed changes to ${TARGET_BRANCH}"
+            echo "REMOVE_RESULT=success" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Normal push failed, trying force-with-lease..."
+            if git push --force-with-lease origin "HEAD:${TARGET_BRANCH}"; then
+              echo "✅ Force-pushed changes to ${TARGET_BRANCH}"
+              echo "REMOVE_RESULT=success" >> "$GITHUB_ENV"
+            else
+              echo "REMOVE_FAILED=true" >> "$GITHUB_ENV"
+              echo "REMOVE_ERROR=推送到 ${TARGET_BRANCH} 失敗" >> "$GITHUB_ENV"
+            fi
+          fi
+
+      # ── Step 4: 檢查移除結果 ───────────────────────────────────
+      - name: 檢查移除結果
+        if: always() && !cancelled()
+        shell: bash
+        run: |
+          if [[ "${REMOVE_FAILED:-}" == "true" ]]; then
+            echo "::error::技能移除失敗: ${REMOVE_ERROR:-未知錯誤}"
+            exit 1
+          fi

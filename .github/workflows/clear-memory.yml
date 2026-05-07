@@ -1,0 +1,96 @@
+name: 🧹 清除小龍蝦記憶
+
+on:
+  workflow_dispatch:
+    inputs:
+      active_issue:
+        description: 目前作用中的 issue number
+        required: true
+        type: string
+
+run-name: "🧹 清除小龍蝦記憶 #${{ inputs.active_issue }}"
+
+concurrency:
+  group: clear-memory-${{ github.repository }}-${{ inputs.active_issue }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  clear-memory:
+    name: 🧹 清除小龍蝦記憶
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ISSUE_NUMBER: ${{ inputs.active_issue }}
+      TARGET_BRANCH: issue-${{ inputs.active_issue }}
+
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+          fetch-depth: 0
+          token: ${{ secrets.CLAW_SYS_GITHUB_TOKEN || github.token }}
+
+      - name: Clear Copilot and Codex memory files
+        run: |
+          set -euo pipefail
+
+          rm -rf \
+            issue.md \
+            issue.jsonl \
+            .copilot/session-state \
+            .copilot/logs \
+            .copilot/ide/*.lock \
+            .copilot/command-history-state.json \
+            .copilot/session-store.db \
+            .copilot/session-store.db-shm \
+            .copilot/session-store.db-wal \
+            .codex/sessions \
+            .codex/history.jsonl \
+            .codex/state_*.sqlite \
+            .codex/state_*.sqlite-*
+
+          find .copilot .codex -type d -empty -delete 2>/dev/null || true
+
+      - name: Commit and push cleanup
+        run: |
+          set -euo pipefail
+
+          paths_to_stage=()
+          for path in issue.md issue.jsonl .copilot .codex; do
+            if [ -e "$path" ] || git ls-files -- "$path" | grep -q .; then
+              paths_to_stage+=("$path")
+            fi
+          done
+
+          if [ ${#paths_to_stage[@]} -eq 0 ]; then
+            echo "No tracked memory files found."
+            exit 0
+          fi
+
+          git add -A -- "${paths_to_stage[@]}"
+
+          if git diff --cached --quiet; then
+            echo "No memory files changed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: clear copilot and codex memory for issue #${ISSUE_NUMBER}"
+          git push origin "HEAD:${TARGET_BRANCH}"
+
+      - name: Publish summary
+        if: always()
+        run: |
+          {
+            echo "### 🧹 清除小龍蝦記憶"
+            echo
+            echo "| 項目 | 值 |"
+            echo "| --- | --- |"
+            echo "| Issue | \`#${ISSUE_NUMBER}\` |"
+            echo "| Branch | \`${TARGET_BRANCH}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"

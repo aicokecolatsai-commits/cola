@@ -1,0 +1,121 @@
+name: '📚 同步範本'
+run-name: "📚 範本同步: ${{ inputs.template_name }} | req:${{ inputs.request_id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      template_name:
+        description: '範本名稱'
+        required: true
+        type: string
+      request_id:
+        description: 'Workflow notification request ID'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "templates-install-${{ github.repository }}-${{ inputs.template_name }}"
+  cancel-in-progress: false
+
+env:
+  TEMPLATE_NAME: "${{ inputs.template_name }}"
+  PUSH_TOKEN: "${{ secrets.CLAW_SYS_GITHUB_TOKEN || github.token }}"
+  AUTOMATION_GIT_USER_NAME: "${{ vars['AUTOMATION_GIT_USER_NAME'] || 'github-actions[bot]' }}"
+  AUTOMATION_GIT_USER_EMAIL: "${{ vars['AUTOMATION_GIT_USER_EMAIL'] || 'github-actions[bot]@users.noreply.github.com' }}"
+  TEMPLATES_SOURCE_REPO: "duotify/GitHubClawToolkit"
+  REQUEST_ID: "${{ inputs.request_id }}"
+
+jobs:
+  install-template:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: 驗證輸入參數
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${TEMPLATE_NAME}" ]]; then
+            echo "::error::template_name is required"
+            exit 1
+          fi
+
+      - name: 簽出倉庫
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ env.PUSH_TOKEN }}
+
+      - name: 從範本倉庫簽出範本
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.TEMPLATES_SOURCE_REPO }}
+          ref: main
+          path: templates-source
+          sparse-checkout: |
+            templates/${{ env.TEMPLATE_NAME }}
+
+      - name: 驗證範本存在
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d "templates-source/templates/${TEMPLATE_NAME}"
+
+      - name: 同步範本到 main 分支
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "${AUTOMATION_GIT_USER_NAME}"
+          git config user.email "${AUTOMATION_GIT_USER_EMAIL}"
+          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git"
+
+          git fetch --no-tags origin main
+          git checkout -B main origin/main
+
+          INSTALL_PATH="templates/${TEMPLATE_NAME}"
+          mkdir -p "${INSTALL_PATH}"
+          rsync -a --delete "templates-source/templates/${TEMPLATE_NAME}/" "${INSTALL_PATH}/"
+
+          # 同步範本額外的 workflow 檔案到 .github/workflows/
+          TEMPLATE_WF_DIR="templates-source/templates/${TEMPLATE_NAME}/.github/workflows"
+          if [[ -d "${TEMPLATE_WF_DIR}" ]]; then
+            mkdir -p ".github/workflows"
+            shopt -s nullglob
+            for wf_file in "${TEMPLATE_WF_DIR}"/*.yml "${TEMPLATE_WF_DIR}"/*.yaml; do
+              wf_name="$(basename "${wf_file}")"
+              [[ "${wf_name}" == "issue-N.yml" ]] && continue
+              echo "複製 workflow: ${wf_name}"
+              cp "${wf_file}" ".github/workflows/${wf_name}"
+            done
+            shopt -u nullglob
+          fi
+
+          git add -A -- "${INSTALL_PATH}" ".github/workflows"
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "feat: sync template '${TEMPLATE_NAME}'"
+          git push origin HEAD:main
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "### 📚 範本同步結果"
+            echo
+            echo "| 項目 | 值 |"
+            echo "| --- | --- |"
+            echo "| Template | \`${TEMPLATE_NAME}\` |"
+            echo "| Target | \`templates/${TEMPLATE_NAME}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"

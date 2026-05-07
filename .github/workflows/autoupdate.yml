@@ -1,0 +1,167 @@
+name: 🦞 更新龍蝦堡核心
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # 每日 UTC 00:00（台灣 08:00）
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "強制執行更新（忽略版本比對）"
+        type: boolean
+        default: false
+      sync_command:
+        description: "更新完成後同步 Telegram 快捷指令"
+        type: boolean
+        default: false
+      request_id:
+        description: "Telegram workflow notification request id"
+        type: string
+        default: ""
+
+run-name: >-
+  🦞 更新龍蝦堡核心: ${{ github.repository }}${{ github.event_name == 'workflow_dispatch' && inputs.request_id != '' && format(' | req:{0}', inputs.request_id) || '' }}
+
+concurrency:
+  group: auto-update-${{ github.repository }}
+  cancel-in-progress: false
+
+env:
+  PACKAGE_MANIFEST_URL: https://duotify.github.io/GitHubClawCore/github-claw-worker-package.json
+
+permissions:
+  contents: write
+
+jobs:
+  check-version:
+    name: 版本比對
+    runs-on: ubuntu-latest
+    permissions: {}
+    outputs:
+      should_update: ${{ steps.compare.outputs.should_update }}
+      remote_version: ${{ steps.compare.outputs.remote_version }}
+      remote_revision: ${{ steps.compare.outputs.remote_revision }}
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: 讀取遠端套件 manifest
+        id: compare
+        env:
+          STORED_VERSION: ${{ vars.LOBSTER_BURGER_PACKAGE_VERSION }}
+          STORED_REVISION: ${{ vars.LOBSTER_BURGER_PACKAGE_REVISION }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          set -euo pipefail
+
+          echo "🔍 讀取遠端套件 manifest..."
+          RESPONSE="$(curl -fsSL "$PACKAGE_MANIFEST_URL")"
+
+          REMOTE_VERSION="$(echo "$RESPONSE" | jq -r '.version // empty')"
+          REMOTE_REVISION="$(echo "$RESPONSE" | jq -r '.revision // empty')"
+          echo "remote_version=$REMOTE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "remote_revision=$REMOTE_REVISION" >> "$GITHUB_OUTPUT"
+          echo "🏷️ 遠端版號: ${REMOTE_VERSION:-（未提供）}"
+          echo "🔖 遠端修訂版: ${REMOTE_REVISION:-（未提供）}"
+          echo "📌 已儲存版號: ${STORED_VERSION:-（未設定）}"
+          echo "📌 已儲存修訂版: ${STORED_REVISION:-（未設定）}"
+
+          if [[ "${FORCE:-false}" == "true" ]]; then
+            echo "⚡ 強制執行模式，略過版本比對"
+            echo "should_update=true" >> "$GITHUB_OUTPUT"
+          elif [[ -z "$REMOTE_VERSION" && -z "$REMOTE_REVISION" ]]; then
+            echo "::error::manifest 缺少 version 與 revision，無法進行比對"
+            exit 1
+          elif [[ -n "$REMOTE_REVISION" ]]; then
+            if [[ "$REMOTE_REVISION" == "${STORED_REVISION:-}" ]]; then
+              echo "✅ 修訂版未異動（$REMOTE_REVISION），略過本次更新"
+              echo "should_update=false" >> "$GITHUB_OUTPUT"
+            elif [[ -z "${STORED_REVISION:-}" ]]; then
+              echo "📋 尚未設定儲存修訂版，執行首次套件同步"
+              echo "should_update=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "🚀 偵測到修訂版異動（${STORED_REVISION:-未設定} -> $REMOTE_REVISION），準備觸發部署"
+              echo "should_update=true" >> "$GITHUB_OUTPUT"
+            fi
+          elif [[ -n "$REMOTE_VERSION" && "$REMOTE_VERSION" == "${STORED_VERSION:-}" ]]; then
+            echo "✅ 版號未異動（$REMOTE_VERSION），略過本次更新"
+            echo "should_update=false" >> "$GITHUB_OUTPUT"
+          elif [[ -z "${STORED_VERSION:-}" && -z "${STORED_REVISION:-}" ]]; then
+            echo "📋 尚未設定已部署套件資訊，執行首次同步"
+            echo "should_update=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "🚀 偵測到套件異動，準備觸發部署"
+            echo "should_update=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 略過摘要
+        if: steps.compare.outputs.should_update == 'false'
+        env:
+          REMOTE_VERSION: ${{ steps.compare.outputs.remote_version }}
+          REMOTE_REVISION: ${{ steps.compare.outputs.remote_revision }}
+          STORED_VERSION: ${{ vars.LOBSTER_BURGER_PACKAGE_VERSION }}
+          STORED_REVISION: ${{ vars.LOBSTER_BURGER_PACKAGE_REVISION }}
+        run: |
+          echo "### 🦞 Auto Update 結果" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**版號未異動，略過本次更新。**" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 項目 | 值 |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|------|-----|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Repository | \`${GITHUB_REPOSITORY}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 目前版號 | \`${REMOTE_VERSION:-未提供}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 目前修訂版 | \`${REMOTE_REVISION:-未提供}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 已儲存版號 | \`${STORED_VERSION:-未設定}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 已儲存修訂版 | \`${STORED_REVISION:-未設定}\` |" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    name: 觸發部署
+    needs: check-version
+    if: needs.check-version.outputs.should_update == 'true'
+    uses: ./.github/workflows/deploy-lobster-burger.yml
+    secrets: inherit
+
+  update-state:
+    name: 更新已部署版本資訊
+    needs:
+      - check-version
+      - deploy
+    if: needs.deploy.result == 'success'
+    runs-on: ubuntu-latest
+    permissions: {}
+    env:
+      GH_TOKEN: ${{ secrets.CLAW_SYS_GITHUB_TOKEN }}
+      REMOTE_VERSION: ${{ needs.check-version.outputs.remote_version }}
+      REMOTE_REVISION: ${{ needs.check-version.outputs.remote_revision }}
+    steps:
+      - name: Persist package metadata
+        run: |
+          set -euo pipefail
+
+          if [[ -n "${REMOTE_VERSION:-}" ]]; then
+            gh variable set LOBSTER_BURGER_PACKAGE_VERSION \
+              --body "$REMOTE_VERSION" \
+              --repo "$GITHUB_REPOSITORY"
+            echo "✅ 已更新 LOBSTER_BURGER_PACKAGE_VERSION -> $REMOTE_VERSION"
+          fi
+
+          if [[ -n "${REMOTE_REVISION:-}" ]]; then
+            gh variable set LOBSTER_BURGER_PACKAGE_REVISION \
+              --body "$REMOTE_REVISION" \
+              --repo "$GITHUB_REPOSITORY"
+            echo "✅ 已更新 LOBSTER_BURGER_PACKAGE_REVISION -> $REMOTE_REVISION"
+          fi
+
+      - name: Summary
+        run: |
+          echo "### 🦞 Auto Update 結果" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**已完成版本比對與部署。**" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 項目 | 值 |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|------|-----|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Repository | \`${GITHUB_REPOSITORY}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 套件版號 | \`${REMOTE_VERSION:-未提供}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| 套件修訂版 | \`${REMOTE_REVISION:-未提供}\` |" >> "$GITHUB_STEP_SUMMARY"

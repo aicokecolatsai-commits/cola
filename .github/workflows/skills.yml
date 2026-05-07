@@ -1,0 +1,281 @@
+# 技能安裝工作流程：從 duotify/GitHubClawToolkit 安裝技能到指定 issue 的工作區。
+# 執行兩次提交：一次在 issue-N 分支（技能檔案），一次在 main 分支（workflow YAML 環境變數）。
+name: '🔧 安裝技能'
+run-name: "技能安裝: ${{ inputs.skill_name }} | req:${{ inputs.request_id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      skill_name:
+        description: '技能名稱'
+        required: true
+        type: string
+      issue_number:
+        description: '目標 issue 編號'
+        required: true
+        type: string
+      request_id:
+        description: 'Workflow notification request ID'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  # 已知問題: GitHub 只保證 1 running, 1 pending，當 1 running, 1 pending 時又多新增一個 run 的話，第二個的那個 1 pending 會被取消，最後一個才會變成 1 pending 狀態
+  group: "skills-install-${{ github.repository }}-{{ inputs.issue_number }}"
+  cancel-in-progress: false
+
+env:
+  SKILL_NAME: "${{ inputs.skill_name }}"
+  ISSUE_NUMBER: "${{ inputs.issue_number }}"
+  PUSH_TOKEN: "${{ secrets.CLAW_SYS_GITHUB_TOKEN || github.token }}"
+  AUTOMATION_GIT_USER_NAME: "${{ vars['AUTOMATION_GIT_USER_NAME'] || 'github-actions[bot]' }}"
+  AUTOMATION_GIT_USER_EMAIL: "${{ vars['AUTOMATION_GIT_USER_EMAIL'] || 'github-actions[bot]@users.noreply.github.com' }}"
+  SKILLS_SOURCE_REPO: "duotify/GitHubClawToolkit"
+  REQUEST_ID: "${{ inputs.request_id }}"
+  COPILOT_GITHUB_TOKEN: "${{ secrets.COPILOT_GITHUB_TOKEN || secrets.CLAW_SYS_GITHUB_TOKEN }}"
+
+jobs:
+  install-skill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      # ── Step 1: 驗證輸入參數 ──────────────────────────────────────
+      - name: 驗證輸入參數
+        shell: bash
+        run: |
+          if [[ -z "${SKILL_NAME}" ]]; then
+            echo "::error::[步驟1 - 驗證輸入參數] 缺少技能名稱。請確認安裝請求有正確填寫技能名稱。"
+            echo "INSTALL_FAILED=true" >> "$GITHUB_ENV"
+            echo "INSTALL_ERROR=[步驟1 - 驗證輸入參數] 缺少技能名稱。請確認安裝請求有正確填寫技能名稱。" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          if [[ -z "${ISSUE_NUMBER}" ]]; then
+            echo "::error::[步驟1 - 驗證輸入參數] 缺少 Issue 編號。請確認安裝請求有正確填寫目標 Issue 編號。"
+            echo "INSTALL_FAILED=true" >> "$GITHUB_ENV"
+            echo "INSTALL_ERROR=[步驟1 - 驗證輸入參數] 缺少 Issue 編號。請確認安裝請求有正確填寫目標 Issue 編號。" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          echo "skill_name=${SKILL_NAME}"
+          echo "issue_number=${ISSUE_NUMBER}"
+
+      # ── Step 2: 簽出倉庫 ──────────────────────────────────────────
+      - name: 簽出倉庫
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ env.PUSH_TOKEN }}
+
+      # ── Step 3: 從技能倉庫稀疏簽出技能 ────────────────────────────
+      - name: 從技能倉庫稀疏簽出技能
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SKILLS_SOURCE_REPO }}
+          ref: main
+          path: .tmp/skills-source
+          sparse-checkout: |
+            skills/${{ env.SKILL_NAME }}
+
+      - name: 驗證技能存在
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -d ".tmp/skills-source/skills/${SKILL_NAME}" ]]; then
+            echo "::error::Skill '${SKILL_NAME}' not found in ${SKILLS_SOURCE_REPO}"
+            echo "INSTALL_FAILED=true" >> "$GITHUB_ENV"
+            echo "INSTALL_ERROR=[步驟3 - 尋找技能] 找不到技能「${SKILL_NAME}」。請確認技能名稱是否正確，或聯絡管理員確認此技能是否已上架。" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          echo "SKILL_SOURCE_DIR=.tmp/skills-source/skills/${SKILL_NAME}" >> "$GITHUB_ENV"
+
+      # ── Step 4: 讀取技能 githubclaw.json ────────────────────────────
+      - name: 讀取技能 githubclaw.json
+        if: env.INSTALL_FAILED != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          MANIFEST="${SKILL_SOURCE_DIR}/githubclaw.json"
+          if [[ ! -f "$MANIFEST" ]]; then
+            echo "No githubclaw.json found, skipping env configuration"
+            echo "REQUIRED_ENVS=" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          # 從 githubclaw.json 的 requireEnv 陣列擷取環境變數，轉成逗號分隔字串
+          ENVS=$(node -e "
+            const fs = require('fs');
+            const manifest = JSON.parse(fs.readFileSync('${MANIFEST}', 'utf8'));
+            const envs = Array.isArray(manifest.requireEnv)
+              ? manifest.requireEnv.filter(e => typeof e === 'string' && e.trim()).map(e => e.trim())
+              : [];
+            if (envs.length) console.log(envs.join(','));
+          ")
+
+          if [[ -z "$ENVS" ]]; then
+            echo "No requireEnv declared"
+            echo "REQUIRED_ENVS=" >> "$GITHUB_ENV"
+          else
+            echo "Required env vars: $ENVS"
+            echo "REQUIRED_ENVS=${ENVS}" >> "$GITHUB_ENV"
+          fi
+
+      # ── Step 5: 切換到 issue 分支並安裝技能檔案 ────────────────────
+      - name: 切換到 issue 分支並安裝技能檔案
+        if: env.INSTALL_FAILED != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TARGET_BRANCH="issue-${ISSUE_NUMBER}"
+          INSTALL_PATH=".agents/skills/${SKILL_NAME}"
+
+          git config user.name "${AUTOMATION_GIT_USER_NAME}"
+          git config user.email "${AUTOMATION_GIT_USER_EMAIL}"
+          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git"
+
+          git fetch --no-tags origin main "${TARGET_BRANCH}" || git fetch --no-tags origin main || true
+          if git show-ref --verify --quiet "refs/remotes/origin/${TARGET_BRANCH}"; then
+            git checkout -B "${TARGET_BRANCH}" "origin/${TARGET_BRANCH}"
+          else
+            git checkout -B "${TARGET_BRANCH}" origin/main
+          fi
+
+          # 複製技能檔案（排除 .githubclaw/ 目錄）
+          mkdir -p "${INSTALL_PATH}"
+          rsync -a --exclude='.githubclaw' "${SKILL_SOURCE_DIR}/" "${INSTALL_PATH}/"
+          echo "✅ Copied skill files to ${INSTALL_PATH}"
+          ls -la "${INSTALL_PATH}/"
+
+          # 提交並推送到 issue 分支
+          git add -A -- . ':(exclude).tmp/skills-source'
+          if git diff --cached --quiet; then
+            echo "No changes to commit (skill may already be installed)"
+            exit 0
+          fi
+
+          git commit -m "feat: install skill '${SKILL_NAME}' for issue #${ISSUE_NUMBER}"
+
+          if git push origin "HEAD:${TARGET_BRANCH}"; then
+            echo "✅ Pushed skill files to ${TARGET_BRANCH}"
+          else
+            echo "::warning::Normal push failed, trying force-with-lease..."
+            if git push --force-with-lease origin "HEAD:${TARGET_BRANCH}"; then
+              echo "✅ Force-pushed skill files to ${TARGET_BRANCH}"
+            else
+              echo "INSTALL_FAILED=true" >> "$GITHUB_ENV"
+              echo "INSTALL_ERROR=[步驟5 - 安裝技能檔案] 無法將技能檔案儲存到工作區（${TARGET_BRANCH}）。可能是系統權限不足，請聯絡管理員確認 CLAW_SYS_GITHUB_TOKEN 是否有倉庫寫入權限。" >> "$GITHUB_ENV"
+            fi
+          fi
+
+      # ── Step 6: 執行自訂後安裝腳本 ────────────────────────────────
+      - name: 執行自訂後安裝腳本
+        if: env.INSTALL_FAILED != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          POST_INSTALL="${SKILL_SOURCE_DIR}/.githubclaw/post-install.sh"
+          if [[ -f "$POST_INSTALL" ]]; then
+            echo "Running post-install.sh..."
+            export SKILL_NAME="${SKILL_NAME}"
+            export ISSUE_NUMBER="${ISSUE_NUMBER}"
+            export TARGET_BRANCH="issue-${ISSUE_NUMBER}"
+            export INSTALL_PATH=".agents/skills/${SKILL_NAME}"
+            export REPO_ROOT="$(pwd)"
+            export GITHUB_TOKEN="${PUSH_TOKEN}"
+            bash "$POST_INSTALL"
+            echo "✅ post-install.sh completed"
+          else
+            echo "No post-install.sh found, skipping"
+          fi
+
+      # ── Step 7: 切換到 main 分支，用 YAML parser 注入 workflow env vars ─
+      - name: 切換到 main 分支修改 workflow YAML
+        if: env.INSTALL_FAILED != 'true' && env.REQUIRED_ENVS != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git checkout main
+          git pull origin main
+
+          WORKFLOW_FILE=".github/workflows/issue-${ISSUE_NUMBER}.yml"
+          if [[ ! -f "$WORKFLOW_FILE" ]]; then
+            echo "⚠️ Workflow file not found: $WORKFLOW_FILE"
+            exit 0
+          fi
+
+          if ! bash .github/workflows/lib/inject-workflow-env.sh \
+            "$WORKFLOW_FILE" \
+            "$REQUIRED_ENVS"; then
+            echo "INSTALL_FAILED=true" >> "$GITHUB_ENV"
+            echo "INSTALL_ERROR=[步驟7 - 設定環境變數] 自動注入環境變數失敗。請確認 workflow 檔案格式正確，或查看上方 log 了解詳情。" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          echo "✅ Env vars injected into $WORKFLOW_FILE"
+
+      # ── Step 8: 提交 main 分支的 workflow 變更 ─────────────────────
+      - name: 提交 main 分支的 workflow 變更
+        if: env.INSTALL_FAILED != 'true' && env.REQUIRED_ENVS != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git add -A -- . ':(exclude).tmp/skills-source'
+          if ! git diff --cached --quiet; then
+            git commit -m "feat: add env vars for skill '${SKILL_NAME}' in issue-${ISSUE_NUMBER} workflow"
+            git push origin main
+            echo "✅ Pushed workflow changes to main"
+          else
+            echo "No workflow changes to commit"
+          fi
+
+      # ── Step 8.5: 用 actionlint 驗證修改後的 workflow YAML ────────
+      - name: 驗證修改後的 workflow YAML
+        if: env.INSTALL_FAILED != 'true' && env.REQUIRED_ENVS != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          WORKFLOW_FILE=".github/workflows/issue-${ISSUE_NUMBER}.yml"
+          if [[ ! -f "$WORKFLOW_FILE" ]]; then
+            echo "⚠️ Workflow file not found: $WORKFLOW_FILE, skipping validation"
+            exit 0
+          fi
+
+          echo "Validating workflow with actionlint..."
+          if npx -y github-actionlint "$WORKFLOW_FILE"; then
+            echo "✅ Workflow YAML validation passed"
+          else
+            echo "::warning::actionlint found issues in $WORKFLOW_FILE — please review"
+          fi
+
+      # ── Step 9: 清理暫存資料 ─────────────────────────────────────
+      - name: 清理暫存資料
+        if: always()
+        shell: bash
+        run: |
+          rm -rf .tmp/skills-source
+
+      # ── Step 10: 根據安裝結果決定 job 狀態 ─────────────────────────
+      - name: 檢查安裝結果
+        if: always() && !cancelled()
+        shell: bash
+        run: |
+          if [[ "${INSTALL_FAILED:-}" == "true" ]]; then
+            echo "::error::❌ 技能安裝失敗"
+            echo "::error::原因：${INSTALL_ERROR:-未知錯誤（請查看上方各步驟的 log）}"
+            echo "::error::如需協助，請將此錯誤訊息截圖給管理員。"
+            exit 1
+          fi
+
