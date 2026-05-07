@@ -65,6 +65,7 @@ env:
   USER_COMMENT_ID: "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.user_comment_id || inputs.user_comment_id }}"
   # 給 Copilot CLI 做 GitHub 驗證用的 token；實際權限要看 repo secrets 如何配置。
   COPILOT_GITHUB_TOKEN: "${{ secrets.COPILOT_GITHUB_TOKEN }}"
+  GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}"
 
 jobs:
   # 單一主 job：在 GitHub-hosted runner 上完成驗證、執行 agent、寫回結果。
@@ -130,6 +131,7 @@ jobs:
         env:
           COPILOT_GITHUB_TOKEN: ${{ env.COPILOT_GITHUB_TOKEN }}
           COPILOT_HOME: ".copilot"
+          GEMINI_API_KEY: ${{ env.GEMINI_API_KEY }}
         run: |
           RAW_ISSUE_NUMBER='${{ env.ISSUE_NUMBER }}'
           RAW_COMMENT_ID='${{ env.COMMENT_ID }}'
