@@ -1,4 +1,4 @@
-# 這個 workflow 會接手指定 issue，執行 Copilot CLI，並把結果回寫到 issue comment 與 issue branch。
+# 這個 workflow 會接手指定 issue，執行 Codex CLI，並把結果回寫到 issue comment 與 issue branch。
 # 注意：整個流程直接跑在 GitHub Actions runner 上，這份 YAML 本身沒有使用 Docker container。
 name: '🦞 執行小龍蝦任務 #3'
 
@@ -20,7 +20,7 @@ on:
         required: false
         type: string
       user_comment_id:
-        description: 'User issue comment ID used to locate artifacts/{user_comment_id}/user.md'
+        description: 'User comment ID used to locate artifacts/{user_comment_id}/user.md'
         required: false
         type: string
       # 可選：觸發來源，方便 workflow 內部根據不同來源調整行為或紀錄分析用。
@@ -61,10 +61,10 @@ env:
   ISSUE_NUMBER: "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.issue_number || inputs.issue_number }}"
   # 若有提供現成的 comment id，就直接更新那則留言。
   COMMENT_ID: "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.comment_id || inputs.comment_id }}"
-  # 這次觸發來源的使用者留言 id，用來讀取對應的 user.md。
   USER_COMMENT_ID: "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.user_comment_id || inputs.user_comment_id }}"
-  # 給 Copilot CLI 做 GitHub 驗證用的 token；實際權限要看 repo secrets 如何配置。
-  COPILOT_GITHUB_TOKEN: "${{ secrets.COPILOT_GITHUB_TOKEN }}"
+  # 給 Codex CLI 做 Gemini API 認證用的金鑰；實際權限要看 repo secrets 如何配置。
+  GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}"
+
 
 jobs:
   # 單一主 job：在 GitHub-hosted runner 上完成驗證、執行 agent、寫回結果。
@@ -88,19 +88,30 @@ jobs:
         with:
           node-version: 22
 
+      # 安裝 OpenAI Codex CLI，這是後續執行任務的核心工具。
+      - name: Install OpenAI Codex CLI
+        run: npm install -g @openai/codex@${{ vars.CODEX_CLI_VERSION || '0.118.0' }}
+
       - name: 狀態更新處理
         if: ${{ (github.event_name == 'repository_dispatch' && github.event.client_payload.event_data == 'StatusUpdate') || inputs.event_data == 'StatusUpdate' }}
         shell: bash
         run: |
           echo "StatusUpdate event detected, performing status update..."
 
+      - name: 初始化輸出檔案
+        if: ${{ (github.event_name == 'repository_dispatch' && github.event.client_payload.event_data != 'StatusUpdate') || inputs.event_data != 'StatusUpdate' }}
+        shell: bash
+        run: |
+          mkdir -p "artifacts/${{ env.COMMENT_ID }}"
+          touch "artifacts/${{ env.COMMENT_ID }}/output.jsonl"
+
       - name: 執行任務
         if: ${{ (github.event_name == 'repository_dispatch' && github.event.client_payload.event_data != 'StatusUpdate') || inputs.event_data != 'StatusUpdate' }}
-        id: copilot_task
+        id: codex_task
         shell: bash
         env:
-          COPILOT_GITHUB_TOKEN: ${{ env.COPILOT_GITHUB_TOKEN }}
-          COPILOT_HOME: ".copilot"
+          CODEX_HOME: ".codex"
+          GEMINI_API_KEY: ${{ env.GEMINI_API_KEY }}
         run: |
           RAW_ISSUE_NUMBER='${{ env.ISSUE_NUMBER }}'
           RAW_COMMENT_ID='${{ env.COMMENT_ID }}'
@@ -143,32 +154,23 @@ jobs:
 
           USER_PROMPT_CONTENT="$(cat "$USER_PROMPT_FILE")"
 
-          npx -y @github/copilot@${{ vars.COPILOT_CLI_VERSION || '1.0.27' }} \
-            -p "請將最終結果寫入 artifacts/${COMMENT_ID}/result.md 。我的提示詞為: ${USER_PROMPT_CONTENT}" \
-            --yolo --stream off --output-format json \
+          codex exec --json --yolo "請將最終結果寫入 artifacts/${COMMENT_ID}/result.md 。我的提示詞為: ${USER_PROMPT_CONTENT}" \
             > "artifacts/${COMMENT_ID}/output.jsonl" \
             2> "artifacts/${COMMENT_ID}/error.log"
 
+      # 推送結果到 issue branch。
       - name: 推送結果
         if: always()
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update results for issue #${{ env.ISSUE_NUMBER }}"
-          fi
-          git push origin "issue-${{ env.ISSUE_NUMBER }}" --force
+        uses: duotify/GitHubClawToolkit/actions/commit-push-issue-branch-action@v1.1.4
+        with:
+          issue_number: ${{ env.ISSUE_NUMBER }}
 
       - name: 任務失敗處理
-        if: failure() && steps.copilot_task.conclusion == 'failure'
+        if: failure() && steps.codex_task.conclusion == 'failure'
         uses: duotify/GitHubClawToolkit/actions/error-handler-action@v1.1.4
         with:
           output_file: artifacts/${{ env.COMMENT_ID }}/error.log
-          result_file: artifacts/${{ env.COMMENT_ID }}/result.md
+          result_file: artifacts/${{ env.COMMENT_ID }}/result.md  
 
 
       - name: 執行結果回報
@@ -178,3 +180,5 @@ jobs:
           issue_number: ${{ env.ISSUE_NUMBER }}
           comment_id: ${{ env.COMMENT_ID }}
           message_file: artifacts/${{ env.COMMENT_ID }}/result.md
+
+
