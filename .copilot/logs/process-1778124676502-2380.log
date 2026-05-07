@@ -1,0 +1,46 @@
+2026-05-07T03:31:16.797Z [INFO] Session indexing debug: SESSION_INDEXING=false, repository=undefined, savedIndexingLevel=undefined
+2026-05-07T03:31:16.852Z [INFO] Workspace initialized: 335474e8-e953-4c1b-ad83-2065a3c3153a (checkpoints: 0)
+2026-05-07T03:31:16.857Z [INFO] Session indexing debug: showSessionSyncPrompt=false
+2026-05-07T03:31:16.857Z [INFO] Starting Copilot CLI: 1.0.27
+2026-05-07T03:31:16.857Z [INFO] Node.js version: v24.11.1
+2026-05-07T03:31:17.240Z [ERROR] Starting remote MCP client for github-mcp-server with url: https://api.individual.githubcopilot.com/mcp/readonly
+2026-05-07T03:31:17.240Z [ERROR] Creating MCP client for github-mcp-server...
+2026-05-07T03:31:17.241Z [ERROR] Connecting MCP client for github-mcp-server...
+2026-05-07T03:31:17.469Z [ERROR] MCP client for github-mcp-server connected, took 228ms
+2026-05-07T03:31:17.470Z [ERROR] Started MCP client for remote server github-mcp-server
+2026-05-07T03:31:17.470Z [ERROR] GitHub MCP server configured after authentication
+2026-05-07T03:31:17.566Z [WARNING] Model 'gpt-5.4-mini' from config file is not available. Falling back to default.
+2026-05-07T03:31:17.566Z [INFO] Using default model: gpt-5-mini
+2026-05-07T03:31:18.027Z [INFO] Memory enablement check: disabled
+2026-05-07T03:31:18.027Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-07T03:31:18.084Z [INFO] Memory enablement check: disabled
+2026-05-07T03:31:18.084Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-07T03:31:18.305Z [INFO] Memory enablement check: disabled
+2026-05-07T03:31:18.305Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-07T03:31:18.306Z [INFO]  
+2026-05-07T03:31:18.307Z [INFO] --- Start of group: configured settings: ---
+2026-05-07T03:31:18.307Z [INFO] --- End of group ---
+2026-05-07T03:31:18.587Z [ERROR] Request to Memory API at https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt failed with status 404 (request ID: 6C00:91B69:2BD149:31E091:69FC0786), body: Resource not found
+
+2026-05-07T03:31:18.587Z [ERROR] Failed to fetch memory prompt: HTTP 404: Resource not found
+ (url=https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt, integrationId=copilot-developer-cli)
+2026-05-07T03:31:18.592Z [INFO]  
+2026-05-07T03:31:18.592Z [INFO] --- Start of group: configured settings: ---
+2026-05-07T03:31:18.592Z [INFO] --- End of group ---
+2026-05-07T03:31:18.595Z [INFO] --- Start of group: Completion request configuration:  ---
+2026-05-07T03:31:18.597Z [INFO] --- End of group ---
+2026-05-07T03:31:19.441Z [INFO] CompactionProcessor: Utilization 15.6% (19943/128000 tokens) below threshold 80%
+2026-05-07T03:31:19.527Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-07T03:31:36.200Z [INFO] --- End of group ---
+2026-05-07T03:31:36.279Z [INFO] CompactionProcessor: Utilization 16.8% (21485/128000 tokens) below threshold 80%
+2026-05-07T03:31:36.382Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-07T03:31:58.265Z [INFO] --- End of group ---
+2026-05-07T03:31:59.516Z [INFO] CompactionProcessor: Utilization 21.2% (27157/128000 tokens) below threshold 80%
+2026-05-07T03:31:59.641Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-07T03:32:18.638Z [INFO] --- End of group ---
+2026-05-07T03:32:19.212Z [INFO] CompactionProcessor: Utilization 21.4% (27397/128000 tokens) below threshold 80%
+2026-05-07T03:32:19.339Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-07T03:32:37.595Z [INFO] --- End of group ---
+2026-05-07T03:32:37.692Z [INFO] CompactionProcessor: Utilization 22.3% (28559/128000 tokens) below threshold 80%
+2026-05-07T03:32:37.848Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-07T03:32:39.586Z [INFO] --- End of group ---
