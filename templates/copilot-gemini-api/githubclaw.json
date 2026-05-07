@@ -1,0 +1,11 @@
+{
+  "name": "Copilot Gemini API",
+  "tagline": "整合 Gemini API 的 Copilot Agent 範本，支援多模態 AI 能力",
+  "description": "Copilot Gemini API 在 Copilot Agent 框架基礎上整合 Google Gemini API，讓 Agent 可使用摘要、圖片描述、音訊轉錄等 Gemini 系列技能。工作流程已預先設定 GEMINI_API_KEY 與 COPILOT_GITHUB_TOKEN 環境變數，適合以 GitHub Copilot 驅動的多模態自動化情境。",
+  "category": "framework",
+  "tags": ["copilot", "gemini", "template", "agent", "multimodal"],
+  "version": "1.0.0",
+  "support_url": "https://github.com/duotify/GitHubClawToolkit/issues",
+  "homepage": "https://learn.duotify.com/courses/githubclaw",
+  "requireEnv": ["GEMINI_API_KEY"]
+}
