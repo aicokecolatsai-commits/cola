@@ -1,0 +1,20 @@
+{
+  "name": "Gemini Summary",
+  "tagline": "Gemini 內容摘要範本，透過 Issue 觸發自動摘要工作流程",
+  "description": "Gemini Summary 範本提供完整的 GitHub Actions 工作流程，透過 Issue 觸發 Gemini 模型對網頁、PDF、影片或音訊進行自動摘要。產出繁體中文摘要並存入 artifacts 目錄，適合需要批次或自動化內容摘要的情境。",
+  "category": "template",
+  "tags": ["gemini", "summary", "template", "workflow", "content-analysis"],
+  "version": "1.0.0",
+  "support_url": "https://github.com/duotify/GitHubClawToolkit/issues",
+  "homepage": "https://learn.duotify.com/courses/githubclaw",
+  "requireEnv": ["GEMINI_API_KEY"],
+  "need_model": true,
+  "modelVar": "GEMINI_SUMMARY_MODEL",
+  "models": [
+    "gemini-3.1-pro-preview",
+    "gemini-3.1-flash-lite-preview",
+    "gemini-2.5-pro",
+    "gemini-2.5-flash-lite",
+    "gemini-2.5-flash"
+  ]
+}
