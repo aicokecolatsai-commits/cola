@@ -1,0 +1,11 @@
+{
+  "name": "Line Bot",
+  "tagline": "LINE Bot 部署範本，一鍵安裝並部署到 Cloudflare Workers",
+  "description": "Line Bot 範本提供完整的 GitHub Actions 工作流程，可自動下載、建置並部署 LINE Bot 到 Cloudflare Workers。支援 LINE webhook 接收訊息、自動回覆，並可透過 GitHub Issue 進行對話追蹤與管理，適合快速建立 LINE 官方帳號機器人。",
+  "category": "integration",
+  "tags": ["line-bot", "cloudflare-workers", "deployment", "template", "messaging"],
+  "version": "1.0.0",
+  "support_url": "https://github.com/duotify/GitHubClawToolkit/issues",
+  "homepage": "https://learn.duotify.com/courses/githubclaw",
+  "requireEnv": ["LINE_CHANNEL_ACCESS_TOKEN", "LINE_CHANNEL_SECRET"]
+}
