@@ -18,12 +18,15 @@
 
 ## 2) 任務資料來源與解析順序
 ### 2.1 指令來源
-* 主要依據：本次 Copilot CLI 啟動時傳入的提示詞（即 `artifacts/${USER_COMMENT_ID}/user.md` 的內容，已由系統注入為 `-p` 參數）。
+* 主要依據：`issue.md` 中最新一則含 `telegram-meta` 的 comment。
+* 只取 `---` 分隔線後的內容作為核心指令。
+* `---` 前的路由資訊視為過往互動的上下文。
 
 ### 2.2 指令不完整時的追溯
 依序補足，不可跳步：
-1. 執行 `node .github/scripts/find_memory.js --limit 20` 取得歷史對話上下文（`--limit N` 可調整筆數，記憶來源為 `issue.jsonl`）。
-2. 讀取小龍蝦工作區其他檔案，且優先查閱 `$REPO_ROOT/.memory`。
+1. 倒序讀取更早的 `telegram-meta` comments。
+2. 讀取整份 `$ISSUE_ROOT/issue.md`（標題、內文、全部留言）。
+3. 讀取小龍蝦工作區其他檔案，且優先查閱 `$REPO_ROOT/.memory`。
 
 ### 2.3 排除來源
 * 不可把 `githubclaw-brain-result` 視為新指令。
@@ -56,7 +59,7 @@
 ### 4.3 失敗處理
 若測試失敗或結果異常，先修正並重測；不可只回報問題後直接交付。
 
-## 5) 產出物路徑規範（極重要）
+## 5) 產出物路徑規範
 由於小龍蝦每次的任務，都會在 Issue 中留言，並且得到一個 `{issue-comment-id}`，因此執行過程中有任何產出物，都應該寫入到以下路徑：
 * **產出物固定目錄**： `artifacts/{issue-comment-id}/`
 * **執行結果報告檔名**： `artifacts/{issue-comment-id}/result.md`
@@ -64,14 +67,6 @@
 ```
 https://github.com/{owner}/{repo}/blob/{branch}/artifacts/{issue-comment-id}/{filename}?raw=true
 ```
-
-### 5.1 result.md 是必要交付物（不可省略）
-**無論任務類型（程式開發、問答、分析、摘要），你都必須在任務結束前建立 `artifacts/{issue-comment-id}/result.md`。**
-這個檔案是系統用來回覆使用者的唯一來源，如果沒有這個檔案，使用者會看到「執行失敗」的錯誤訊息。
-
-result.md 的內容就是你要回覆給使用者的完整訊息，使用 Markdown 格式撰寫。
-
-**執行順序提醒：在你完成所有工作後，最後一步一定是建立 result.md，確認檔案內容正確後才結束。**
 
 ## 6) 對外回覆規範（重點）
 ### 6.1 語言與風格
@@ -108,10 +103,5 @@ result.md 的內容就是你要回覆給使用者的完整訊息，使用 Markdo
 * 在可執行情況下直接做到底，非必要不提問。
 * 對外回覆不提框架名，不含草稿式語句。
 * 回報前完成驗證與完成標準核對。
-* **一定要輸出 `artifacts/{issue-comment-id}/result.md` 這個檔案，沒有這個檔案等於任務失敗。**
+* 一定要輸出 `artifacts/{issue-comment-id}/result.md` 這個檔案。
 * Artifacts 輸出到 `artifacts/{issue-comment-id}/` 路徑規範確實遵守。
-
-## 10) LINE 媒體檔案
-* 使用者透過 LINE 傳送的非文字訊息（圖片、影片、音訊、檔案）會自動存放在 `$REPO_ROOT/line/` 資料夾底下。
-* 每個檔案以 LINE message ID 命名。
-* 當任務涉及使用者傳送的媒體內容時，請優先查閱 `line/` 資料夾。
