@@ -1,0 +1,52 @@
+2026-05-09T03:30:41.348Z [INFO] Session indexing debug: SESSION_INDEXING=false, repository=undefined, savedIndexingLevel=undefined
+2026-05-09T03:30:41.408Z [INFO] Workspace initialized: 807a3c2a-13c3-4006-9f7b-ee11987d490b (checkpoints: 0)
+2026-05-09T03:30:41.414Z [INFO] Session indexing debug: showSessionSyncPrompt=false
+2026-05-09T03:30:41.414Z [INFO] Starting Copilot CLI: 1.0.27
+2026-05-09T03:30:41.414Z [INFO] Node.js version: v24.11.1
+2026-05-09T03:30:41.840Z [ERROR] Starting remote MCP client for github-mcp-server with url: https://api.individual.githubcopilot.com/mcp/readonly
+2026-05-09T03:30:41.840Z [ERROR] Creating MCP client for github-mcp-server...
+2026-05-09T03:30:41.841Z [ERROR] Connecting MCP client for github-mcp-server...
+2026-05-09T03:30:42.119Z [ERROR] MCP client for github-mcp-server connected, took 278ms
+2026-05-09T03:30:42.120Z [ERROR] Started MCP client for remote server github-mcp-server
+2026-05-09T03:30:42.120Z [ERROR] GitHub MCP server configured after authentication
+2026-05-09T03:30:42.224Z [WARNING] Model 'gpt-5.4-mini' from config file is not available. Falling back to default.
+2026-05-09T03:30:42.224Z [INFO] Using default model: gpt-5-mini
+2026-05-09T03:30:42.796Z [INFO] Memory enablement check: disabled
+2026-05-09T03:30:42.797Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-09T03:30:42.826Z [INFO] Memory enablement check: disabled
+2026-05-09T03:30:42.827Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-09T03:30:43.116Z [INFO] Memory enablement check: disabled
+2026-05-09T03:30:43.116Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-09T03:30:43.118Z [INFO]  
+2026-05-09T03:30:43.118Z [INFO] --- Start of group: configured settings: ---
+2026-05-09T03:30:43.118Z [INFO] --- End of group ---
+2026-05-09T03:30:43.370Z [ERROR] Request to Memory API at https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt failed with status 404 (request ID: 3400:19BCF6:1D07D64:2166CD0:69FEAA63), body: Resource not found
+
+2026-05-09T03:30:43.370Z [ERROR] Failed to fetch memory prompt: HTTP 404: Resource not found
+ (url=https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt, integrationId=copilot-developer-cli)
+2026-05-09T03:30:43.375Z [INFO]  
+2026-05-09T03:30:43.375Z [INFO] --- Start of group: configured settings: ---
+2026-05-09T03:30:43.375Z [INFO] --- End of group ---
+2026-05-09T03:30:43.379Z [INFO] --- Start of group: Completion request configuration:  ---
+2026-05-09T03:30:43.380Z [INFO] --- End of group ---
+2026-05-09T03:30:44.229Z [INFO] CompactionProcessor: Utilization 15.6% (19958/128000 tokens) below threshold 80%
+2026-05-09T03:30:44.330Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-09T03:31:04.989Z [INFO] --- End of group ---
+2026-05-09T03:31:05.076Z [INFO] CompactionProcessor: Utilization 16.8% (21509/128000 tokens) below threshold 80%
+2026-05-09T03:31:05.196Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-09T03:31:32.945Z [INFO] --- End of group ---
+2026-05-09T03:31:33.240Z [INFO] CompactionProcessor: Utilization 17.4% (22285/128000 tokens) below threshold 80%
+2026-05-09T03:31:33.364Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-09T03:31:46.154Z [INFO] --- End of group ---
+2026-05-09T03:31:46.997Z [INFO] CompactionProcessor: Utilization 21.4% (27403/128000 tokens) below threshold 80%
+2026-05-09T03:31:47.136Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-09T03:31:53.164Z [INFO] --- End of group ---
+2026-05-09T03:31:53.434Z [INFO] CompactionProcessor: Utilization 26.2% (33594/128000 tokens) below threshold 80%
+2026-05-09T03:31:53.603Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-09T03:32:08.381Z [INFO] --- End of group ---
+2026-05-09T03:32:09.068Z [INFO] CompactionProcessor: Utilization 26.3% (33720/128000 tokens) below threshold 80%
+2026-05-09T03:32:09.246Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-09T03:38:15.516Z [INFO] --- End of group ---
+2026-05-09T03:39:57.647Z [INFO] CompactionProcessor: Utilization 29.4% (37608/128000 tokens) below threshold 80%
+2026-05-09T03:43:19.673Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-09T03:43:23.789Z [INFO] --- End of group ---
