@@ -1,0 +1,51 @@
+# 數位健康：過去 1 天（2026-05-11 到 2026-05-12）期刊文章清單
+
+## PubMed (透過 E-utilities)
+
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114193/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114192/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114191/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114190/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114189/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114188/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114187/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114186/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114185/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114184/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114183/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114182/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114181/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114180/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114179/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114178/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114177/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114176/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114175/
+- No title —  () — https://pubmed.ncbi.nlm.nih.gov/42114174/
+
+
+## CrossRef
+
+- Clinical effectiveness of telerehabilitation for chronic low back pain in Sub-Saharan Africa: a systematic review — BMC Digital Health (2026-5-11) — https://doi.org/10.1186/s44247-026-00261-0
+- Adapting DeepLabV3+ for biopsy cervical cancer lesion segmentation — Frontiers in Digital Health (2026-5-11) — https://doi.org/10.3389/fdgth.2026.1776155
+- Moving beyond one-size-fits-all education approaches for artificial intelligence in healthcare — PLOS Digital Health (2026-5-11) — https://doi.org/10.1371/journal.pdig.0001408
+- Connected or chained by social media? Child and adolescent mental health in a digital era — PLOS Medicine (2026-5-11) — https://doi.org/10.1371/journal.pmed.1005099
+- When telepressure never sleeps: psychological/spatial detachment as mediators to sleep quality in digital nomads — Frontiers in Public Health (2026-5-11) — https://doi.org/10.3389/fpubh.2026.1788479
+- Gamification features in extended reality applications for health of older adults: a systematic review — BMC Digital Health (2026-5-12) — https://doi.org/10.1186/s44247-026-00262-z
+- Phototherapy In The Digital Age: Transformations, Approaches, And Relevance In Contemporary Mental Health Practice. — International Journal of Interdisciplinary Research (2026-5-11) — https://doi.org/10.71305/ijir.v2i2.1620
+- The emerging role of digital dentistry in managing molar-incisor hypomineralization: A perspective — PLOS Digital Health (2026-5-11) — https://doi.org/10.1371/journal.pdig.0001406
+- Potash Alum-induced Chemical Vaginitis Masquerading as Vulvovaginal Malignancy: A Case Report on the Perils of Digital Health Misinformation —  (2026-5-11) — https://doi.org/10.21203/rs.3.rs-9523233/v1
+- Soma Design for Digital Mental Health and Well-Being Interventions: Scoping Review — JMIR Human Factors (2026-5-11) — https://doi.org/10.2196/79400
+- COMPETÊNCIAS TECNOLÓGICAS E EFICIÊNCIA ORGANIZACIONAL NA GESTÃO EM SAÚDE DIGITAL: PROTOCOLO DE REVISÃO INTEGRATIVA — Revista Enfermagem Atual In Derme (2026-5-11) — https://doi.org/10.31011/reaid-2026-v.100-n.2-art.2699
+- The Quality and Characteristics of Digital Mental Health Apps: Mixed Methods Study — JMIR Human Factors (2026-5-11) — https://doi.org/10.2196/67944
+- AI-Powered Digital Agriculture Platforms for Smart Fertilization — AI-Driven Smart Fertilization (2026-5-11) — https://doi.org/10.1201/9781042010301-25
+- From digital objects to decolonial epistemologies: reconfiguring Arab media studies through a critical digital humanities framework — International Journal of Digital Humanities (2026-5-11) — https://doi.org/10.1007/s42803-026-00126-y
+- Nomophobia, emotion regulation, loneliness and smartphone use among adolescents: a gratification-compensatory smartphone use theory — Mental Health and Digital Technologies (2026-5-11) — https://doi.org/10.1108/mhdt-11-2025-0077
+- Through a Digital Lens — Global Literature and the Digital (2026-5-11) — https://doi.org/10.4324/9781003394860-3
+- Digital Crossroads —  (2026-5-12) — https://doi.org/10.7551/mitpress/14452.001.0001
+- Effect of a digital health behaviour change support system on cardiovascular disease risk in a randomized weight loss trial — npj Digital Medicine (2026-5-11) — https://doi.org/10.1038/s41746-026-02747-7
+- An IoT-enabled Digital Twin for induction motors: design and performance analysis of a low-latency MQTT/wi-fi monitoring system — Digital Twin (2026-5-11) — https://doi.org/10.1080/27525783.2026.2668126
+- Design of a digital-twin-based dynamic scheduling system for AGVs in automated container terminals — Digital Twin (2026-5-11) — https://doi.org/10.1080/27525783.2026.2668136
+
+
+來源：PubMed E-utilities、CrossRef API
