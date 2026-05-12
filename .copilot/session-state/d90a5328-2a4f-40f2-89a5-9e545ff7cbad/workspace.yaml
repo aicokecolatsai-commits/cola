@@ -1,0 +1,10 @@
+id: d90a5328-2a4f-40f2-89a5-9e545ff7cbad
+cwd: /home/runner/work/cola/cola
+git_root: /home/runner/work/cola/cola
+repository: aicokecolatsai-commits/cola
+host_type: github
+branch: issue-2
+summary_count: 0
+created_at: 2026-05-12T08:15:41.062Z
+updated_at: 2026-05-12T08:15:44.518Z
+summary: "請將最終結果寫入 artifacts/4428598315/result.md 。我的提示詞為: 幫我讀完lll-11.pdf，然後給我大綱摘要"
