@@ -1,0 +1,34 @@
+# 過去 24 小時（最新）數位健康新聞彙整與中文翻譯
+
+註：系統未設定 Gemini API Key，因此改以公開新聞來源擷取過去一天內的相關報導，並逐則翻譯成繁體中文。如需使用 gemini-deep-researcher（Deep Research agent）產生更完整摘要，請提供環境變數 GEMINI_API_KEY。
+
+1) 印澳研討聚焦醫療教育轉型 — 數位健康與 AI 培訓成焦點
+來源連結：https://news.google.com/read/CBMi6gJBVV95cUxNbTFlYjQ4RFEtT0Y2WVFUczBXUW5GdW9WanJhWmp4Tl9oWEpET3JvclN0b1NGbU5JckxxREktV1NHQWx6dnE4WmhCT1hnTnphbGxzVXlKYUFWeDc5eDBDLWZFQUJ2OW02X2xTQXp6bjNmVDNrSHAyU2lHd1E0bkZzeC1NNTRaZEx4VlpFWGlJak9OemVtQTdKZU5TQloxVnFBTERfcGs2YTZrazctY3RxWWJPQjZ1N1RpUHBWMFJoS0YtTVBWNUFlWndtZjFLdFFfYmxxdGFwYXJ6YUdWNC1seEJkWU8wWkUzeVhwWFUxeFZKd1A0T1BYTUt0WUQ2dV9zQ01EVmV1REVrZm9zSEhWdzlLLTdJSTZwVVlwZkNHN0V0bHNCZE5ZV2Zid2dUSDlaVnVHc1VpVDBaUTUxd0dlc295VXh0d2FXdE9jM3p2aENka2JaZkhDSkxiQlNPdU1wZ2tBcGdyUWlvQQ?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+翻譯摘要：印澳研討會聚焦醫療教育的數位轉型，強調將數位健康與人工智慧納入專業訓練，提升臨床與遠距照護能力，並推動跨國學術合作與培訓計畫。
+
+2) 高科技創新助印度醫療普及 — 遠距與 AI 彌補資源落差
+來源連結：https://news.google.com/read/CBMi5gJBVV95cUxQakd3dmFoS21FbFdvajQ5Rzd2Q296UGdKcEltdlFscVdnZ002UExLXzdpNzBDNTZUR09ENkwxRzd2RUJEVXBaeVNmQ1NlSG10RmVMR0N0TmU4OVJ0MWUzb0Rjc0hpWEJIazQwMjhLYjRmQ19rdUpYdGY0V0RPSnpfOXdTanI3R0o3WDZlYW44YkxQWi1ldFFjRThESEpVQ1ZHYzFpUzlLMEZ0SVpRRFBFSkZ2U2lfa19UMXNaWWFTT1htck5JR3kyV2ZfV1ZtZFJZbVdIZEY4ZGR4NU1LMkhHajBiY2ZsaU9YcHBYbHo0bXhieTB4ZWhzSUhjTVFZVC05YmNGLXk2NThjUW9oSFd5TXBqNUhBV0U4cVBXWVU4ODh2b1dScFVtNGhBdE0wakE2djU4VnNuRTRhNmtLUjRuYnhyVkN1cHF1b2VpYWg1TWFUOXJTZGZlR2Z3aS1zOFhrVkZ6NmZR?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+翻譯摘要：報導指出印度利用遠距醫療與 AI 技術，改善偏鄉與資源匱乏地區的醫療可及性，透過數位工具加速篩檢、診斷與慢性病管理。
+
+3) 彰化榮服處前進偏鄉 — 雲端智慧醫療串聯資源守護榮民健康
+來源連結：https://news.google.com/read/CBMijAFBVV95cUxOOUlTY3ZvdnlCenRxNk1sb1drMVFDd0cwV3JCRUM2ZG45ODhOdzduNlJBSmZ5VXFHTFh2UzJrdGkwMElMQ3hzLVV6ckNCRGxzQTl0enVqazRQalZ5bV9ueGJBeGpzS1NwMGdTNGJUdUFoTjlMSjZXZDN4eU42ZFA4WWIyS3ZNaTZOOUFQbg?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+翻譯摘要：地方衛生單位導入雲端與遠距醫療系統，將都市醫療資源串聯到偏鄉，提升長者與榮民的定期健康管理與遠距諮詢能力。
+
+4) 馬偕張文瀚院長領軍 — 臺灣智慧醫療與健康產業展覽會前進日內瓦
+來源連結：https://news.google.com/read/CBMiiwFBVV95cUxPTHQzOUZabXp2RFVKc1k2VEFmVTFObDNOVmNfeEdrV1A4RXZXQzhzX1pVMV9hQUFhcTZjTzBjV0I3ajAtdHNCbzR1dl9JeGZJTWthcjgzQ01ManBjT085MXd6blVwZ1NpTGtzenQ5amlDMml2SFhDS2o2ZWxfVlRaTlJSeEsta2hETnVn?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+翻譯摘要：臺灣智慧醫療團隊赴日內瓦參展，展示數位健康應用與醫療創新技術，拓展國際合作機會並尋求跨國商業化可能性。
+
+5) 健保 ASCVD 防治網推動高血脂方案 — 強化血脂照護品質
+來源連結：https://news.google.com/read/CBMiSEFVX3lxTFBqUEdaa3ZjaU9fZUlMT0RJNnk2Q2dzbnVhbWItS0p2Vjd1YW9XZHVra3pDcmdXcTBLSk01TTE3d0tSZ2pYRC1sTw?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+翻譯摘要：健保系統推動高風險心血管族群的防治與給付改善方案，結合數位追蹤與社區照護，以提升血脂管理與減少心血管事件風險。
+
+6) 印度古爾岡查獲假減肥藥集團 — Tirzepatide 製劑偽裝日貨販售
+來源連結：https://news.google.com/read/CBMiUkFVX3lxTFBqdUJzbElzQmczZHNJNG8wc1V0Wk9LLU14LWltaVlNNjZiay1GQ2NseDVQWTJsS2I2UGtuTlVIbDhmNjlSdjFfQUdaWnA4eXJRdnc?hl=zh-TW&gl=TW&ceid=TW:zh-Hant
+翻譯摘要：執法單位破獲販售假減肥藥的集團，相關案件指出部分仿冒含有 Tirzepatide 成分的製劑流入市面，提醒民眾藥物來源與安全的重要性，並呼籲透過數位藥品溯源等機制加強監管。
+
+---
+
+來源說明：以上連結為 Google News 聚合之報導讀取連結（news.google.com/read/...），點開後可轉至原始新聞來源。所選報導皆出現在過去 24 小時內的聚合結果，內容已翻譯與簡述。
+
+若要使用 gemini-deep-researcher 產生更完整且有來源分析的深度報告，請提供 GEMINI_API_KEY 環境變數，或授權由系統存取該金鑰。
+
