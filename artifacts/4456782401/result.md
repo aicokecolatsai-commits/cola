@@ -1,0 +1,69 @@
+取得時間：2026-05-15T04:01:55Z
+來源：使用 Google News RSS（關鍵字："digital health"，時間範圍：過去 1 天）
+
+以下為過去 1 天內搜尋到的數位健康相關新聞（每則附原文連結與繁體中文翻譯）：
+
+1. 原文：Digital Health Solution For Young People: Launching the PAHO Virtual Course on Youth-Centered Digital Health Interventions
+   來源：Pan American Health Organization (PAHO)
+   連結：https://news.google.com/rss/articles/CBMivAFBVV95cUxNMUsxbmZsRUpnakJXWHdWRWRneGFYb0hkUnJYcG5vUDdNTk1WSXVtbWI2RVpWU2xGV0U5cGRkTUFyRFZWMGhsSE1qeDlSS0g5Rm9XMXdNZ0VHMmI5RDZnblZUVzlQMUVlaGZFMmRYek84UGR1Q29HMW5zTi1KeC15MXFTVXAyUDJIVG0tYU9UTDNXYS1BSzdBOFNNTDNZN0xhNGduNUpoNVdZbVJLQnY3bUg3bVFZcmI0MDU3Sw
+   翻譯：泛美衛生組織推出針對青少年導向的數位健康介入線上課程，提供年輕族群的數位健康解決方案與實務指引。
+
+2. 原文：Why big digital health players are missing from Medicare’s chronic care experiment
+   來源：statnews.com
+   連結：https://news.google.com/rss/articles/CBMilgFBVV95cUxNWEhJUjZKR1NidEJ1b3dtUzhvOHNfUmVGV3Mxc0JKV1UzTlFzclJ4TzVXQjdjM04wcGVfdkFlMFI3ZmlWRktiZXFVd2tGT2tuRXNtR0hMRDRhNFZsV1QzUTdEcVU3TlAyU3NEcElSOWptQmhONzFhdzFMX2J6QlBQMXpIdFdkYWJPNjdkUno3dlFsVXoxdHc
+   翻譯：分析為何大型數位健康業者未參與 Medicare 的慢性病試驗，探討市場、報銷與實務整合障礙。
+
+3. 原文：TransCelerate Research Examines the Role of Digital Health Technologies in Patient Safety, Published in DIA's Therapeutic Innovation & Regulatory Science
+   來源：PR Newswire
+   連結：https://news.google.com/rss/articles/CBMirwJBVV95cUxQdW5mTktDaXhfdVZ2eXRtRUljTGxKVV8tS3FmYzdfQlZFY3JNOHNtNWZXZDRRd21ONi1NS0syYWJJb0k5bGcyMHFXRExOa0VnWUNVZ1JhZDV0Y1d5WlBUMGpMWHRzRUU0T3AxNTNSdnQ2MnR4TlUzTWdiN0FKaDJjc2lscHJubFdzbXhUNml5bXBQMVB4UWJVcnRzVEFJOGNCQTZpS2tvZzBIbG5nY0h0TkFwb2gxU19wZUJfYWNQdXZYWF9vakdBaTZPS3hBTEI4RGJadFpRaUtRcGlmUWE1Rk82aDJ0X2ZiLVlzaGFZTXB2alhYbi1RYzJxSDFBZ3pFbHNTeDU2NzROemZicjFfaURqNUVDT3hzRHI4WjJGQ2wtTTU4bG5NV2ZsbmZIUTQ
+   翻譯：TransCelerate 的研究探討數位健康技術對病人安全的影響，研究結果已發表於期刊，強調整合數位工具以提升安全性的證據與建議。
+
+4. 原文：CMS announces first 29 health care organizations to join electronic prior authorization initiative
+   來源：American Hospital Association
+   連結：https://news.google.com/rss/articles/CBMi1wFBVV95cUxNeENoQUdwSU1RYWJqLXBPdjJ4eWZ6a011WEVXeTFmdXc4Wm0tT25BRGEzVkNFTWRIcm5tQ1JRZ3hqUTg4a0FMZVBEX3Y0b0tlQW4yYWhjWkQyci1lNVcybGE5dXNGcFhwZzhpOXdRem9MNkU3QlBTOGY2ZjlnM1lGQ0k2MnNzR2FSVmNwNXFSclBTdFN4ZzNxczFyUGdvNEszMmEwb1h3ak44NUtDLTU3ajRpNHNxYnBhQTJRMnJUcGZfVmVwbmRQOE5JX3VybXFxeHB2THpkZw
+   翻譯：CMS 宣布首批 29 家醫療機構加入電子事前授權倡議，推動自動化與數位化流程以加速授權處理。
+
+5. 原文：Fierce Healthcare Funding Tracker '26: Yuzu Health picks up $35M
+   來源：Fierce Healthcare
+   連結：https://news.google.com/rss/articles/CBMijgFBVV95cUxQaFJTdWtYZzBuMHVULWhJWFV3dVB3d0NfeEE1V0RMcV82Z2VFZ2ZtV2x2ZDBYTG1ZUnQ1RGFsZ0pFWmNFZW1rczNCOFRDUjFCTlFvUEplLVFuZmpHRVpfS2pZX3M1ZjZDaFUzZVV3QURjclpScmZlVndpaWlaN3hBNU11dWRpMkxmamp5ZXhR
+   翻譯：報導 Yuzu Health 獲得 3,500 萬美元融資，顯示數位健康初創仍吸引資本投入。
+
+6. 原文：AI in Healthcare: Symposium Insights
+   來源：Inside Precision Medicine
+   連結：https://news.google.com/rss/articles/CBMimwFBVV95cUxQQUxuNXJ6eW5lMlNlRExoMEIwZjVwb19idDVPYk10U2tXYmVUUmQ3YWdlbHk5SG01eVRKYi1wdzhGa1pmNFBvaDRuTUFFUU1xZDI3eEE4WmZsYVlfNlNQQTVxOEdfb09aZm5VZFFCeE1yUG1RZ2pBSmlmQkV4Q2RNOEt3ZlBpU0E2Um03emVPYm5kckxvUGp3cTdDVQ
+   翻譯：會議整理：AI 在醫療領域的重點見解，涵蓋精準醫療、臨床決策支援與監管議題。
+
+7. 原文：Budget 2026: Australia funds $400M more for My Health Record
+   來源：Healthcare IT News
+   連結：https://news.google.com/rss/articles/CBMinAFBVV95cUxNWEp1SmEzOW8zMmQ4Sy0yZjhOaDhzdlQ5bm5OcXNTTmNYZTFuc3dqVkF5Wk9JNkhRd2xRRlYyenZWLVU1bFlBc0hobmpNMWwzRzN6RWlmOG5rUWZRTVYzMDlUQW13WlZvN2w3U2ZQY2JRaDFnMDlvSFR1MmxmbTVvZFZ6SVF3eTdDeVEtZlBHSmp3OFFLeEpVUFZNWHg
+   翻譯：澳洲 2026 年預算額外提供 4 億美元加強 My Health Record，支持國家級數位病歷系統擴充。
+
+8. 原文：Wellgistics Health Accelerates Digital Health Expansion... (新聞稿)
+   來源：TradingView
+   連結：https://news.google.com/rss/articles/CBMilwNBVV95cUxOeEtMS3RXam1KWDRta2ZCNmh0NF8zdGk2X0dFOF81cmNjdVQ5LVBJenhDanVsOVNOaFN3UUNETEhqbGtwZTN1ZkVyOV84MXNVd0h6WDh6MlF4Y3dhSjdwTXV4NWhiSG5pU1lWV1ZRSXlxUVJQb1p2V2pDSlB6Z2xHb1h4by01YjkxcjFMSm1ScFNPUk9qYzlpdVNlMUwxak5YNzZmc2puMXRkeEcwQ01vcmhFdVAwYmV6RUxuOUNzWjg1dTF2Nkc1V3BURURyWWVvcHpid0E5empjVjNSSmJNelBybnItYWM2ZFRiUllVemdiU3liRVpZTjJaTmgzc2NENFBwYXh5WmVaR3R6aFkzWjRqZl94ZnQwQ1VwdmJfZkpTVUROd2R1bWhUZXE2TFRjcmF3RXFrcUNVTDZhNFE4V0IzZDN1NzZwREdCV3E5UHhWQ25tYTVwaWxWUmNXNWhHREVJREhBVUdiWEwxV2h2MnZiT3RMTnBzdUh6RHh4MzNmUHlsUmVrU2Flc2FFTV80WlpzVmozcw
+   翻譯：公司新聞稿：Wellgistics Health 推進遠距監測與相關數位健康試點，並計畫透過收購擴展服務與技術平台。
+
+9. 原文：Blue Shield of California Joins Centers for Medicare & Medicaid Services’ Electronic Prior Authorization Pledge
+   來源：Blue Shield of California | News Center
+   連結：https://news.google.com/rss/articles/CBMi4wFBVV95cUxQdnhHZnFzeTc0R3Y1YXpBQ2M4bUpzamdQcHduUGZhOUxBVWVrS0hleHk4Z0xVQ0p1aDdFSWJ5N1F1cjN0ODI2dGZhb0lOVEpVNEc1SUNFUGFvTHhoT25DT3RfUmpsNlhCbFNpTWdLWGJzcGUzQzBlalptaGhCV25ubzhubnNGOHF6MFg1bHBDNmVJaHJRQXd6NzRCVG9lMnhuNUJsWXJyY254V1d2OWthTnYzM3J4dG9zLWRlLU9qOHd0aHFWWUV6dDRROVRwLWc2bmllOFFSbzI3eU55SFlHdHd0bw
+   翻譯：Blue Shield of California 加入 CMS 的電子事前授權承諾，支持標準化與互通性以簡化授權流程。
+
+10. 原文：Hims & Hers expands digital healthcare platform via new care offerings
+    來源：MSN
+    連結：https://news.google.com/rss/articles/CBMigwNBVV95cUxPcjdPRUoxd09TWDVuS09WSGNJeVY1NDcyNUd0U0NZa0FvVWdHeWVxSURUZVFRWjIwX3lBYUNtTzl2aG9ianB2OGExNEJBR0V1NDQtVG5kRFBnZXFlU01XYVVjLWVOUkpsTDJlUzJ0MVF6UmtzNzQyUVJ0T0dUUWRNSERyOFhPVEI0SjFaUG5sci1pM1FUZE5QbUtNeXp4SURCbFRfTXhiMERHU21xY2hCR3ZsaGxDOWNpa2dQUmplc29sWWNxckRVaFQwWG83eFRsUHFHTW1jcmd0Umh1bndGM01YOUpVam5EWUs2Q0NDVEdsUzZiaEQwNEZlazdqdE5aaXZSeEJmU2dUS1F1WU5nVDRLRHBCR0Ryc0tsVFQ1MVlXcmI0dk5JdFJYUDdKa2h2LXA0RU1kS25OelctS0hFYjl3VHhqVWVLQ09GVnFUVnNNZTZIRHBJVl85WURzanFzUHU1cGZhMUM1ZlN0TEkxRGc2dTJZUUliUUxhdTFRcGpJNEU
+    翻譯：Hims & Hers 擴展其數位醫療平台，推出新照護服務以擴大線上診療與處方等功能。
+
+11. 原文：CMS launches initiative to speed electronic prior authorization adoption
+    來源：Healthcare Dive
+    連結：https://news.google.com/rss/articles/CBMiqwFBVV95cUxQc1FzeEpFcWtGZVlnYmExYW1xNUdINTRDZjQ1UWtJODdnblNIbW01emhTbnFKWnU3U3BxYVZXd09zTHROOUtVLUp6M1VsZHhrOGhkYnVINXFXa0pQSi1fT3VoWWw0RzVHZ2IzME9iT1RzazZqS2tZSUxHSWxKT3FEd2p2X1VpOWdhODlVWVIxdnZLT09kT1B6czVKcnlMdXd6ME83SFFvUVdaUjQ
+    翻譯：CMS 推出行動以加速電子事前授權的採用，期望提升效率並減少手動作業負擔。
+
+12. 原文：AI chatbots and mental health: 4 ways Congress can boost safety
+    來源：American Medical Association
+    連結：https://news.google.com/rss/articles/CBMivwFBVV95cUxOSndSb29ZTHQ3LU0zbTdDNHFxWGpVYURYN1ZjNTFaUlJJbnVtMXpzaVMtX00tMW1BMGtZSjUxcnltTHh1MmdmM05XVHdnRG5SOHFwdnc0cTFFOW13WnpQX2xaQ2E5RWxLTmVmVzR0ajYwVFZRT1Vzazd6Y3h6cF9IaURyRDVNenRXQ0FZOVUzNF9aR3NhZ2RUN05RSWNGR1RCVngwdlZiaVp3N0gyekxhUk9GRlZhSTExYlM0MGVvTQ
+    翻譯：探討 AI 聊天機器人與心理健康的風險，並提出四項國會可採取的措施以提升安全性。
+
+——
+備註：
+- 上述連結皆為 Google News 的 RSS 轉向連結，點開後會導向原始新聞來源。
+- 因系統無法存取 Gemini API（金鑰未設定），改以 Google News RSS 抓取過去 24 小時內的相關新聞。若需更完整原文網址或更深入逐篇翻譯與摘要，請允許進一步擷取原始頁面以補足詳細內容。
