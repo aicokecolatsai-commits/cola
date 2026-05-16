@@ -1,0 +1,49 @@
+2026-05-16T03:30:38.242Z [INFO] Session indexing debug: SESSION_INDEXING=false, repository=undefined, savedIndexingLevel=undefined
+2026-05-16T03:30:38.295Z [INFO] Workspace initialized: 0703c7cf-c351-42d8-a969-024b69db8447 (checkpoints: 0)
+2026-05-16T03:30:38.300Z [INFO] Session indexing debug: showSessionSyncPrompt=false
+2026-05-16T03:30:38.300Z [INFO] Starting Copilot CLI: 1.0.27
+2026-05-16T03:30:38.300Z [INFO] Node.js version: v24.11.1
+2026-05-16T03:30:38.895Z [ERROR] Starting remote MCP client for github-mcp-server with url: https://api.individual.githubcopilot.com/mcp/readonly
+2026-05-16T03:30:38.895Z [ERROR] Creating MCP client for github-mcp-server...
+2026-05-16T03:30:38.896Z [ERROR] Connecting MCP client for github-mcp-server...
+2026-05-16T03:30:39.387Z [ERROR] MCP client for github-mcp-server connected, took 491ms
+2026-05-16T03:30:39.388Z [ERROR] Started MCP client for remote server github-mcp-server
+2026-05-16T03:30:39.388Z [ERROR] GitHub MCP server configured after authentication
+2026-05-16T03:30:39.610Z [WARNING] Model 'gpt-5.4-mini' from config file is not available. Falling back to default.
+2026-05-16T03:30:39.611Z [INFO] Using default model: gpt-5-mini
+2026-05-16T03:30:40.425Z [INFO] Memory enablement check: disabled
+2026-05-16T03:30:40.425Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-16T03:30:40.513Z [INFO] Memory enablement check: disabled
+2026-05-16T03:30:40.513Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-16T03:30:40.748Z [INFO] Memory enablement check: disabled
+2026-05-16T03:30:40.748Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-16T03:30:40.749Z [INFO]  
+2026-05-16T03:30:40.749Z [INFO] --- Start of group: configured settings: ---
+2026-05-16T03:30:40.749Z [INFO] --- End of group ---
+2026-05-16T03:30:41.090Z [ERROR] Request to Memory API at https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt failed with status 404 (request ID: 3410:1A6417:21C4238:267B356:6A07E4E0), body: Resource not found
+
+2026-05-16T03:30:41.091Z [ERROR] Failed to fetch memory prompt: HTTP 404: Resource not found
+ (url=https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt, integrationId=copilot-developer-cli)
+2026-05-16T03:30:41.095Z [INFO]  
+2026-05-16T03:30:41.095Z [INFO] --- Start of group: configured settings: ---
+2026-05-16T03:30:41.095Z [INFO] --- End of group ---
+2026-05-16T03:30:41.098Z [INFO] --- Start of group: Completion request configuration:  ---
+2026-05-16T03:30:41.099Z [INFO] --- End of group ---
+2026-05-16T03:30:41.918Z [INFO] CompactionProcessor: Utilization 15.6% (19962/128000 tokens) below threshold 80%
+2026-05-16T03:30:42.010Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-16T03:30:52.164Z [INFO] --- End of group ---
+2026-05-16T03:30:52.247Z [INFO] CompactionProcessor: Utilization 16.8% (21546/128000 tokens) below threshold 80%
+2026-05-16T03:30:52.354Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-16T03:31:14.066Z [INFO] --- End of group ---
+2026-05-16T03:31:14.931Z [INFO] CompactionProcessor: Utilization 21.0% (26831/128000 tokens) below threshold 80%
+2026-05-16T03:31:15.056Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-16T03:31:23.324Z [INFO] --- End of group ---
+2026-05-16T03:31:23.922Z [INFO] CompactionProcessor: Utilization 25.0% (31984/128000 tokens) below threshold 80%
+2026-05-16T03:31:24.063Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-16T03:31:36.534Z [INFO] --- End of group ---
+2026-05-16T03:31:37.114Z [INFO] CompactionProcessor: Utilization 25.1% (32080/128000 tokens) below threshold 80%
+2026-05-16T03:31:37.258Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-16T03:31:44.257Z [INFO] --- End of group ---
+2026-05-16T03:31:44.340Z [INFO] CompactionProcessor: Utilization 25.4% (32543/128000 tokens) below threshold 80%
+2026-05-16T03:31:44.487Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-16T03:31:47.435Z [INFO] --- End of group ---
