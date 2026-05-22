@@ -70,14 +70,14 @@ jobs:
 
       # ── Step 2: 簽出倉庫 ──────────────────────────────────────────
       - name: 簽出倉庫
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ env.PUSH_TOKEN }}
 
       # ── Step 3: 從技能倉庫稀疏簽出技能 ────────────────────────────
       - name: 從技能倉庫稀疏簽出技能
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: ${{ env.SKILLS_SOURCE_REPO }}
           ref: main
@@ -278,4 +278,3 @@ jobs:
             echo "::error::如需協助，請將此錯誤訊息截圖給管理員。"
             exit 1
           fi
-

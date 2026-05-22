@@ -48,13 +48,13 @@ jobs:
           fi
 
       - name: 簽出倉庫
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ env.PUSH_TOKEN }}
 
       - name: 從範本倉庫簽出範本
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: ${{ env.TEMPLATES_SOURCE_REPO }}
           ref: main

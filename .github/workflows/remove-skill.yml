@@ -56,7 +56,7 @@ jobs:
 
       # ── Step 2: 簽出倉庫 ──────────────────────────────────────────
       - name: 簽出倉庫
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ env.PUSH_TOKEN }}
