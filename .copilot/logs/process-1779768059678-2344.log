@@ -1,0 +1,68 @@
+2026-05-26T04:01:00.045Z [INFO] Session indexing debug: SESSION_INDEXING=false, repository=undefined, savedIndexingLevel=undefined
+2026-05-26T04:01:00.090Z [INFO] Workspace initialized: ec2e732e-3551-4133-a5c2-44d4fa46af4f (checkpoints: 0)
+2026-05-26T04:01:00.096Z [INFO] Session indexing debug: showSessionSyncPrompt=false
+2026-05-26T04:01:00.096Z [INFO] Starting Copilot CLI: 1.0.27
+2026-05-26T04:01:00.096Z [INFO] Node.js version: v24.11.1
+2026-05-26T04:01:00.676Z [ERROR] Starting remote MCP client for github-mcp-server with url: https://api.individual.githubcopilot.com/mcp/readonly
+2026-05-26T04:01:00.676Z [ERROR] Creating MCP client for github-mcp-server...
+2026-05-26T04:01:00.677Z [ERROR] Connecting MCP client for github-mcp-server...
+2026-05-26T04:01:01.357Z [ERROR] MCP client for github-mcp-server connected, took 680ms
+2026-05-26T04:01:01.358Z [ERROR] Started MCP client for remote server github-mcp-server
+2026-05-26T04:01:01.358Z [ERROR] GitHub MCP server configured after authentication
+2026-05-26T04:01:01.572Z [WARNING] Model 'gpt-5.4-mini' from config file is not available. Falling back to default.
+2026-05-26T04:01:01.572Z [INFO] Using default model: gpt-5-mini
+2026-05-26T04:01:02.371Z [INFO] Memory enablement check: disabled
+2026-05-26T04:01:02.371Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-26T04:01:02.417Z [INFO] Memory enablement check: disabled
+2026-05-26T04:01:02.417Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-26T04:01:02.743Z [INFO] Memory enablement check: disabled
+2026-05-26T04:01:02.743Z [INFO] Memory is not enabled; skipping memory tools.
+2026-05-26T04:01:02.744Z [INFO]  
+2026-05-26T04:01:02.745Z [INFO] --- Start of group: configured settings: ---
+2026-05-26T04:01:02.745Z [INFO] --- End of group ---
+2026-05-26T04:01:03.181Z [ERROR] Request to Memory API at https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt failed with status 404 (request ID: 5808:1F8E4D:11B804:13FE92:6A151AFE), body: Resource not found
+
+2026-05-26T04:01:03.181Z [ERROR] Failed to fetch memory prompt: HTTP 404: Resource not found
+ (url=https://api.individual.githubcopilot.com/agents/swe/internal/memory/v0/aicokecolatsai-commits/cola/prompt, integrationId=copilot-developer-cli)
+2026-05-26T04:01:03.186Z [INFO]  
+2026-05-26T04:01:03.186Z [INFO] --- Start of group: configured settings: ---
+2026-05-26T04:01:03.186Z [INFO] --- End of group ---
+2026-05-26T04:01:03.189Z [INFO] --- Start of group: Completion request configuration:  ---
+2026-05-26T04:01:03.190Z [INFO] --- End of group ---
+2026-05-26T04:01:04.061Z [INFO] CompactionProcessor: Utilization 15.6% (19977/128000 tokens) below threshold 80%
+2026-05-26T04:01:04.160Z [INFO] --- Start of group: Sending request to the AI model ---
+2026-05-26T04:01:04.412Z [ERROR] error (Request-ID 5808:1F8E4D:11BE74:140579:6A151AFF)
+2026-05-26T04:01:04.413Z [ERROR] {
+  "status": 402,
+  "headers": {},
+  "requestID": "00000-146d15ba-4ed4-4300-9ce3-be13f0992342",
+  "error": {
+    "message": "You have no quota",
+    "code": "quota_exceeded"
+  },
+  "code": "quota_exceeded",
+  "request_id": "00000-146d15ba-4ed4-4300-9ce3-be13f0992342",
+  "ghRequestId": "5808:1F8E4D:11BE74:140579:6A151AFF",
+  "name": "CAPIError",
+  "message": "402 You have no quota",
+  "stack": "CAPIError: 402 You have no quota\n    at t.fromAPIError (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2082:1048)\n    at Idt.getCompletionWithTools (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2082:11934)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async KZe.getCompletionWithTools (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2094:2742)\n    at async t.runAgenticLoop (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2603:3046)\n    at async t.processQueuedItems (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2601:9035)\n    at async t.processQueue (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2601:3027)\n    at async t.send (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2599:4033)\n    at async asa (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:6698:2232)\n    at async mSt (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:6657:662)"
+}
+2026-05-26T04:01:04.414Z [ERROR] Retry after is not set. Giving up.
+2026-05-26T04:01:04.414Z [ERROR] error
+2026-05-26T04:01:04.414Z [ERROR] {
+  "status": 402,
+  "headers": {},
+  "requestID": "00000-146d15ba-4ed4-4300-9ce3-be13f0992342",
+  "error": {
+    "message": "You have no quota",
+    "code": "quota_exceeded"
+  },
+  "code": "quota_exceeded",
+  "request_id": "00000-146d15ba-4ed4-4300-9ce3-be13f0992342",
+  "ghRequestId": "5808:1F8E4D:11BE74:140579:6A151AFF",
+  "name": "CAPIError",
+  "message": "402 You have no quota",
+  "stack": "CAPIError: 402 You have no quota\n    at t.fromAPIError (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2082:1048)\n    at Idt.getCompletionWithTools (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2082:11934)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async KZe.getCompletionWithTools (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2094:2742)\n    at async t.runAgenticLoop (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2603:3046)\n    at async t.processQueuedItems (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2601:9035)\n    at async t.processQueue (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2601:3027)\n    at async t.send (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:2599:4033)\n    at async asa (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:6698:2232)\n    at async mSt (file:///home/runner/.cache/copilot/pkg/linux-x64/1.0.27/app.js:6657:662)"
+}
+2026-05-26T04:01:04.414Z [INFO] --- End of group ---
+2026-05-26T04:01:04.416Z [ERROR] Payment required error: CAPIError: 402 You have no quota
