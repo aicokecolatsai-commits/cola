@@ -1,0 +1,10 @@
+id: d6a11781-4f2e-4f67-9f3a-0d0d9e921424
+cwd: /home/runner/work/cola/cola
+git_root: /home/runner/work/cola/cola
+repository: aicokecolatsai-commits/cola
+host_type: github
+branch: issue-2
+summary_count: 0
+created_at: 2026-05-30T03:31:16.193Z
+updated_at: 2026-05-30T03:31:19.171Z
+summary: "請將最終結果寫入 artifacts/4581503592/result.md 。我的提示詞為: 我要用gemini-deep-researcher給我最新1天所查到的數位健康的期刊資訊與相對應連結"
