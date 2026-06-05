@@ -1,0 +1,10 @@
+id: a35a6718-091a-4f0c-a16e-5d50024e6efa
+cwd: /home/runner/work/cola/cola
+git_root: /home/runner/work/cola/cola
+repository: aicokecolatsai-commits/cola
+host_type: github
+branch: issue-2
+summary_count: 0
+created_at: 2026-06-05T04:00:39.470Z
+updated_at: 2026-06-05T04:00:43.574Z
+summary: "請將最終結果寫入 artifacts/4627974851/result.md 。我的提示詞為: 我要用gemini-deep-researcher給我最新1天所查到的數位健康的新聞資訊與相對應連結，每則資訊都要翻譯成中文"
