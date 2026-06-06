@@ -143,11 +143,21 @@ jobs:
 
           USER_PROMPT_CONTENT="$(cat "$USER_PROMPT_FILE")"
 
+          set +e
           npx -y @github/copilot@${{ vars.COPILOT_CLI_VERSION || '1.0.27' }} \
             -p "請將最終結果寫入 artifacts/${COMMENT_ID}/result.md 。我的提示詞為: ${USER_PROMPT_CONTENT}" \
             --yolo --stream off --output-format json \
             > "artifacts/${COMMENT_ID}/output.jsonl" \
             2> "artifacts/${COMMENT_ID}/error.log"
+          EXIT_CODE=$?
+          set -e
+
+          if [[ -s "artifacts/${COMMENT_ID}/result.md" ]]; then
+            echo "Warning: Copilot CLI exited with code ${EXIT_CODE}, but result.md was generated."
+            exit 0
+          else
+            exit ${EXIT_CODE}
+          fi
 
       - name: 推送結果
         if: always()
@@ -165,7 +175,7 @@ jobs:
 
       - name: 任務失敗處理
         if: failure() && steps.copilot_task.conclusion == 'failure'
-        uses: duotify/GitHubClawToolkit/actions/error-handler-action@v1.1.4
+        uses: duotify/GitHubClawToolkit/actions/error-handler-action@v1
         with:
           output_file: artifacts/${{ env.COMMENT_ID }}/error.log
           result_file: artifacts/${{ env.COMMENT_ID }}/result.md
@@ -173,7 +183,7 @@ jobs:
 
       - name: 執行結果回報
         if: always()
-        uses: duotify/GitHubClawToolkit/actions/update-comment-action@v1.1.4
+        uses: duotify/GitHubClawToolkit/actions/update-comment-action@v1
         with:
           issue_number: ${{ env.ISSUE_NUMBER }}
           comment_id: ${{ env.COMMENT_ID }}
