@@ -413,24 +413,30 @@ jobs:
           gh variable set WORKER_URL --body "${WORKER_URL}" --repo "${GITHUB_REPOSITORY}"
           gh variable set GITHUBCLAW_WORKER_URL --body "${WORKER_URL}" --repo "${GITHUB_REPOSITORY}"
 
-      - name: Wait for Worker subdomain activation
+      - name: Wait for Worker health check
         env:
           WORKER_URL: ${{ steps.tf_outputs.outputs.worker_url }}
         run: |
           set -euo pipefail
-          echo "⏳ 等待 Cloudflare Worker subdomain 啟用..."
-          MAX_RETRIES=10
-          RETRY_INTERVAL=5
-          WORKER_ENDPOINT="${WORKER_URL%/}/"
+          echo "⏳ 等待 Cloudflare Worker health check..."
+          MAX_RETRIES=20
+          RETRY_INTERVAL=3
+          WORKER_ENDPOINT="${WORKER_URL%/}/health"
+          last_response=""
           for i in $(seq 1 $MAX_RETRIES); do
-            if curl -s -o /dev/null --max-time 10 "${WORKER_ENDPOINT}" 2>/dev/null; then
-              echo "✅ Worker 已可連線，耗時約 $(( (i - 1) * RETRY_INTERVAL )) 秒"
-              exit 0
+            response=""
+            if response="$(curl --fail-with-body --show-error --silent --max-time 10 "${WORKER_ENDPOINT}")"; then
+              if jq -e '.ok == true and .service == "githubclaw-core"' <<<"${response}" >/dev/null 2>&1; then
+                echo "✅ Worker health check 通過，耗時約 $(( (i - 1) * RETRY_INTERVAL )) 秒"
+                exit 0
+              fi
             fi
-            echo "  嘗試 $i/$MAX_RETRIES：Worker 尚未回應，${RETRY_INTERVAL} 秒後重試..."
+            last_response="${response:-"(empty response)"}"
+            echo "  嘗試 $i/$MAX_RETRIES：Worker health check 尚未通過，${RETRY_INTERVAL} 秒後重試..."
             sleep $RETRY_INTERVAL
           done
-          echo "::warning::⚠️ Worker 在 $(( MAX_RETRIES * RETRY_INTERVAL )) 秒內仍未回應，繼續部署但 webhook 可能無法正常運作"
+          echo "::error::Worker health check failed at ${WORKER_ENDPOINT}. Last response: ${last_response:0:500}"
+          exit 1
 
       - name: Configure Telegram webhook
         env:
