@@ -1,0 +1,10 @@
+id: 80c843c3-de34-4b01-bcb5-1d89a714de94
+cwd: /home/runner/work/colaclaw/colaclaw
+git_root: /home/runner/work/colaclaw/colaclaw
+repository: aicokecolatsai-commits/colaclaw
+host_type: github
+branch: issue-2
+summary_count: 0
+created_at: 2026-07-03T03:37:17.034Z
+updated_at: 2026-07-03T03:37:22.355Z
+summary: "請將最終結果寫入 artifacts/4872354012/result.md 。我的提示詞為: 我要用gemini-deep-researcher給我最新1天所查到的數位健康的期刊資訊與相對應連結"
