@@ -1,0 +1,13 @@
+{"type":"thread.started","thread_id":"019f6d9b-f012-71c0-b316-dff988872aef"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: wss://api.openai.com/v1/responses, cf-ray: a1c5578c7868a1c7-MSP)"}
+{"type":"error","message":"Reconnecting... 3/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: wss://api.openai.com/v1/responses, cf-ray: a1c557908a290c73-MSP)"}
+{"type":"error","message":"Reconnecting... 4/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: wss://api.openai.com/v1/responses, cf-ray: a1c55796ff5f393c-MSP)"}
+{"type":"error","message":"Reconnecting... 5/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: wss://api.openai.com/v1/responses, cf-ray: a1c557a2b974a225-MSP)"}
+{"type":"error","message":"Reconnecting... 1/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a1c557b958e1a1fd-MSP, request id: req_051e3a01ba284a54a87f323fe14e881a)"}
+{"type":"error","message":"Reconnecting... 2/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a1c557bb791da1d2-MSP, request id: req_e4197ca5c4f4415a936f09bc3e7fa52e)"}
+{"type":"error","message":"Reconnecting... 3/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a1c557beeaf00c73-MSP, request id: req_ebc09c03c5e54e6b83ebedb4baf8b3c3)"}
+{"type":"error","message":"Reconnecting... 4/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a1c557c538b0acff-MSP, request id: req_dafc8bbb8fe5413198795803084f693c)"}
+{"type":"error","message":"Reconnecting... 5/5 (unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a1c557cf8b63393c-MSP, request id: req_5f28870e127146d8ac377664f6bfb3bd)"}
+{"type":"error","message":"unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a1c557e65e7aa225-MSP, request id: req_87044c4dde164393b2206521aa57e1d7"}
+{"type":"turn.failed","error":{"message":"unexpected status 401 Unauthorized: Missing bearer or basic authentication in header, url: https://api.openai.com/v1/responses, cf-ray: a1c557e65e7aa225-MSP, request id: req_87044c4dde164393b2206521aa57e1d7"}}
